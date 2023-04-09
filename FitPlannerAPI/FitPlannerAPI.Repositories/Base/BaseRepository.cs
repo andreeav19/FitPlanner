@@ -1,55 +1,71 @@
-﻿namespace FitPlannerAPI.Repositories.Base
+﻿using FitPlannerApi.Models;
+using FitPlannerAPI.Models.Base;
+using Microsoft.EntityFrameworkCore;
+
+namespace FitPlannerAPI.Repositories.Base
 {
-    internal class BaseRepository<TEntity> : IBaseRepository<TEntity>
+    internal class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        public BaseRepository()
-        {
+        protected readonly FitPlannerDbContext _context;
+        protected readonly DbSet<TEntity> _table;
 
+        public BaseRepository(FitPlannerDbContext context)
+        {
+            _context = context;
+            _table = _context.Set<TEntity>();
         }
 
-        public Task CreateAsync(TEntity entity)
+        public async Task CreateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _table.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<Guid> CreateAsyncGetId(TEntity entity)
+        public async Task<Guid> CreateAsyncGetId(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _table.AddAsync(entity);
+            await _context.SaveChangesAsync();
+
+            return entity.Id;
         }
 
-        public Task CreateRangeAsync(IEnumerable<TEntity> entities)
+        public async Task CreateRangeAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            await _table.AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(TEntity entity)
+        public async Task<int> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            _table.Update(entity);
+            return await _context.SaveChangesAsync();
         }
 
-        public Task DeleteRangeAsync(IEnumerable<TEntity> entities)
+        public async Task DeleteAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            _table.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<List<TEntity>> GetAll()
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _table.RemoveRange(entities);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<TEntity>> GetAllAsList()
+        {
+           return await _table.AsNoTracking().ToListAsync();
         }
 
         public IQueryable<TEntity> GetAllAsQueryable()
         {
-            throw new NotImplementedException();
+            return _table.AsNoTracking();
         }
 
-        public Task<TEntity> GetByIdAsync(Guid id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
+            return await _table.FindAsync(id);
         }
     }
 }
