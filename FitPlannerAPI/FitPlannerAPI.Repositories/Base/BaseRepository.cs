@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitPlannerAPI.Repositories.Base
 {
-    internal class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         protected readonly FitPlannerDbContext _context;
         protected readonly DbSet<TEntity> _table;

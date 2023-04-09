@@ -1,5 +1,8 @@
 using FitPlannerApi.Models;
 using Microsoft.EntityFrameworkCore;
+using FitPlannerAPI.Repositories;
+using FitPlannerAPI.Repositories.Repositories.ExerciseRepository;
+using FitPlannerAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,11 @@ builder.Services.AddDbContext<FitPlannerDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("FitPlanner"));
 });
+
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 

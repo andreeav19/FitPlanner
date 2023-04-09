@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FitPlannerAPI.Repositories.Repositories.ExerciseRepository;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FitPlannerAPI.Repositories
 {
@@ -6,7 +7,7 @@ namespace FitPlannerAPI.Repositories
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            // repositories have not been added yet
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
         }
     }
 }

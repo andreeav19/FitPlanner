@@ -1,9 +1,9 @@
 ﻿namespace FitPlannerAPI.Repositories.Base
 {
-    internal interface IBaseRepository<TEntity>
+    public interface IBaseRepository<TEntity>
     {
         Task<TEntity> GetByIdAsync(Guid id);
-        Task<List<TEntity>> GetAll();
+        Task<List<TEntity>> GetAllAsList();
         IQueryable<TEntity> GetAllAsQueryable();
 
         Task CreateAsync(TEntity entity);
