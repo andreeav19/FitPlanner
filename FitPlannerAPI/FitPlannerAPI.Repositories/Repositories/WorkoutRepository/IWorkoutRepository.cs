@@ -5,6 +5,7 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
 {
     public interface IWorkoutRepository : IBaseRepository<WorkoutRoutine>
     {
+        public Task<WorkoutRoutine> UpdateAsync(Guid id, WorkoutRoutine workoutRoutine);
 
     }
 }
