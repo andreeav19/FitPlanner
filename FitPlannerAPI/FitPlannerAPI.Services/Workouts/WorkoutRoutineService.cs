@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitPlannerAPI.DTO.Workouts;
+using FitPlannerAPI.Models.Models;
 using FitPlannerAPI.Repositories.Repositories.WorkoutRepository;
 
 namespace FitPlannerAPI.Services.Workouts
@@ -14,6 +15,19 @@ namespace FitPlannerAPI.Services.Workouts
             this._workoutRepository = workoutRepository;
             this._mapper = mapper;
         }
+
+        public async Task<bool> AddExercise(Guid workoutId, WorkoutExercisePost workoutExercisePost)
+        {
+            var workoutExercise = new WorkoutExercise
+            {
+                WorkoutRoutineId = workoutId,
+                ExerciseId = workoutExercisePost.ExerciseId,
+                ExerciseCount = workoutExercisePost.ExerciseCount,
+            };
+
+            return await _workoutRepository.CreateWorkoutExercise(workoutExercise);
+        }
+
         public async Task<Guid> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost)
         {
             var workout = new FitPlannerAPI.Models.Models.WorkoutRoutine
@@ -42,17 +56,17 @@ namespace FitPlannerAPI.Services.Workouts
             return true;
         }
 
-        public async Task<List<WorkoutRoutine>> GetAllWorkoutRoutines()
+        public async Task<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>> GetAllWorkoutRoutines()
         {
-            var workouts = await _workoutRepository.GetAllWorkoutRoutinesExercises();
+            var workouts = await _workoutRepository.GetAllAsList();
             var workoutsDTO = _mapper.Map<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>>(workouts);
 
             return workoutsDTO;
         }
 
-        public async Task<WorkoutRoutine> GetWorkoutRoutineById(Guid id)
+        public async Task<FitPlannerAPI.DTO.Workouts.WorkoutRoutine> GetWorkoutRoutineById(Guid id)
         {
-            var workout = await _workoutRepository.GetWorkoutRoutineExerciseById(id);
+            var workout = await _workoutRepository.GetByIdAsync(id);
             var workoutDTO = _mapper.Map<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>(workout);
 
             return workoutDTO;

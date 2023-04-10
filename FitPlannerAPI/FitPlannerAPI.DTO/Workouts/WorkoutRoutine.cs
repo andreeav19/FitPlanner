@@ -1,4 +1,5 @@
 ﻿using FitPlannerAPI.DTO.Base;
+using FitPlannerAPI.Models.Models;
 
 namespace FitPlannerAPI.DTO.Workouts
 {

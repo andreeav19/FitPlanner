@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FitPlannerAPI.Models\FitPlannerAPI.Models.csproj" />
+  </ItemGroup>
+
 </Project>

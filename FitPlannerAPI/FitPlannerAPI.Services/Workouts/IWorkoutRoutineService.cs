@@ -9,5 +9,6 @@ namespace FitPlannerAPI.Services.Workouts
         Task<Guid> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost);
         Task<WorkoutRoutine> UpdateWorkoutRoutine(Guid id, WorkoutRoutinePut workoutRoutinePut);
         Task<bool> DeleteWorkoutRoutine(Guid id);
+        Task<bool> AddExercise(Guid workoutId, WorkoutExercisePost workoutExercisePost);
     }
 }

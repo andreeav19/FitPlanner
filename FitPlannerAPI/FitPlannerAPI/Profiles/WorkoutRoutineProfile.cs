@@ -7,6 +7,8 @@ namespace FitPlannerAPI.Profiles
         public WorkoutRoutineProfile()
         {
             CreateMap<FitPlannerAPI.Models.Models.WorkoutRoutine, FitPlannerAPI.DTO.Workouts.WorkoutRoutine>().ReverseMap();
+            CreateMap<FitPlannerAPI.Models.Models.WorkoutExercise, FitPlannerAPI.DTO.Workouts.WorkoutExercisePost>().ReverseMap();
+
         }
     }
 }

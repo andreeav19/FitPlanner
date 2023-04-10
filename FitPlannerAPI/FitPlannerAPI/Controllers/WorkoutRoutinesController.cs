@@ -1,6 +1,8 @@
-﻿using FitPlannerAPI.DTO.Workouts;
+﻿using FitPlannerApi.Models;
+using FitPlannerAPI.DTO.Workouts;
 using FitPlannerAPI.Services.Workouts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitPlannerAPI.Controllers
 {
@@ -9,10 +11,12 @@ namespace FitPlannerAPI.Controllers
     public class WorkoutRoutinesController : Controller
     {
         private readonly IWorkoutRoutineService _workoutService;
+        private readonly FitPlannerDbContext fitPlannerDbContext;
 
-        public WorkoutRoutinesController(IWorkoutRoutineService workoutService)
+        public WorkoutRoutinesController(IWorkoutRoutineService workoutService, FitPlannerDbContext fitPlannerDbContext)
         {
             this._workoutService = workoutService;
+            this.fitPlannerDbContext = fitPlannerDbContext;
         }
 
         [HttpGet]
@@ -48,6 +52,20 @@ namespace FitPlannerAPI.Controllers
             var workoutId = await _workoutService.CreateWorkoutRoutine(workoutRoutinePost);
 
             return Ok(workoutId);
+        }
+
+        [HttpPost]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> AddExercise(Guid id, WorkoutExercisePost workoutExercisePost)
+        {
+            var isAdded = await _workoutService.AddExercise(id, workoutExercisePost);
+
+            if (!isAdded) 
+            { 
+                return BadRequest("Could not add exercise."); 
+            }
+
+            return Ok();
         }
 
         [HttpPut]

@@ -6,8 +6,7 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
     public interface IWorkoutRepository : IBaseRepository<WorkoutRoutine>
     {
         public Task<WorkoutRoutine> UpdateAsync(Guid id, WorkoutRoutine workoutRoutine);
-        public Task<List<WorkoutRoutine>> GetAllWorkoutRoutinesExercises();
-        public Task<WorkoutRoutine> GetWorkoutRoutineExerciseById(Guid id);
+        public Task<bool> CreateWorkoutExercise(WorkoutExercise workoutExercise);
 
     }
 }
