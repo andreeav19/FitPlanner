@@ -52,7 +52,6 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
-
         public async Task<IActionResult> UpdateIngredient(Guid id, IngredientPut ingredientPut)
         {
             var ingredient = await _ingredientService.UpdateIngredient(id, ingredientPut);
