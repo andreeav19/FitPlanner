@@ -1,6 +1,7 @@
 ﻿using FitPlannerApi.Models;
 using FitPlannerAPI.Models.Models;
 using FitPlannerAPI.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
 {
@@ -26,6 +27,14 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
             await _context.SaveChangesAsync();
 
             return existingWorkout;
+        }
+
+        public async Task<List<WorkoutRoutine>> GetWorkoutRoutineExercises()
+        {
+            return await _table
+                .Include(w => w.WorkoutExercises)
+                .ThenInclude(we => we.Exercise)
+                .ToListAsync();
         }
     }
 }
