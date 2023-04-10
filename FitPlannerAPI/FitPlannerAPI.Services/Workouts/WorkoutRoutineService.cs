@@ -44,7 +44,7 @@ namespace FitPlannerAPI.Services.Workouts
 
         public async Task<List<WorkoutRoutine>> GetAllWorkoutRoutines()
         {
-            var workouts = await _workoutRepository.GetWorkoutRoutineExercises();
+            var workouts = await _workoutRepository.GetAllWorkoutRoutinesExercises();
             var workoutsDTO = _mapper.Map<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>>(workouts);
 
             return workoutsDTO;
@@ -52,7 +52,7 @@ namespace FitPlannerAPI.Services.Workouts
 
         public async Task<WorkoutRoutine> GetWorkoutRoutineById(Guid id)
         {
-            var workout = await _workoutRepository.GetByIdAsync(id);
+            var workout = await _workoutRepository.GetWorkoutRoutineExerciseById(id);
             var workoutDTO = _mapper.Map<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>(workout);
 
             return workoutDTO;

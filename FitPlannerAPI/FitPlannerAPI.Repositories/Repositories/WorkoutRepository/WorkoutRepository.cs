@@ -29,12 +29,20 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
             return existingWorkout;
         }
 
-        public async Task<List<WorkoutRoutine>> GetWorkoutRoutineExercises()
+        public async Task<List<WorkoutRoutine>> GetAllWorkoutRoutinesExercises()
         {
             return await _table
                 .Include(w => w.WorkoutExercises)
                 .ThenInclude(we => we.Exercise)
                 .ToListAsync();
+        }
+
+        public async Task<WorkoutRoutine> GetWorkoutRoutineExerciseById(Guid id)
+        {
+            return await _table
+                .Include(w => w.WorkoutExercises)
+                .ThenInclude(we => we.Exercise)
+                .FirstOrDefaultAsync(result => result.Id == id);
         }
     }
 }

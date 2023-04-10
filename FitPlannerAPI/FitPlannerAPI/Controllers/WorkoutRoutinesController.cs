@@ -1,4 +1,5 @@
-﻿using FitPlannerAPI.Services.Workouts;
+﻿using FitPlannerAPI.DTO.Workouts;
+using FitPlannerAPI.Services.Workouts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
@@ -25,6 +26,56 @@ namespace FitPlannerAPI.Controllers
             }
 
             return Ok(workouts);
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> GetWorkoutById(Guid id)
+        {
+            var workout = await _workoutService.GetWorkoutRoutineById(id);
+
+            if (workout == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(workout);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost)
+        {
+            var workoutId = await _workoutService.CreateWorkoutRoutine(workoutRoutinePost);
+
+            return Ok(workoutId);
+        }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdateWorkoutRoutine(Guid id, WorkoutRoutinePut workoutRoutinePut)
+        {
+            var workout = await _workoutService.UpdateWorkoutRoutine(id, workoutRoutinePut);
+
+            if (workout == null)
+            {
+                return BadRequest("Could not update.");
+            }
+
+            return Ok(workout);
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> DeleteWorkoutRoutine(Guid id)
+        {
+            var isDeleted = await _workoutService.DeleteWorkoutRoutine(id);
+
+            if (!isDeleted)
+            {
+                return BadRequest("Could not delete.");
+            }
+
+            return Ok();
         }
     }
 }
