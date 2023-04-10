@@ -17,12 +17,14 @@ namespace FitPlannerAPI.Repositories.Base
 
         public async Task CreateAsync(TEntity entity)
         {
+            entity.Id = Guid.NewGuid();
             await _table.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
         public async Task<Guid> CreateAsyncGetId(TEntity entity)
         {
+            entity.Id = Guid.NewGuid();
             await _table.AddAsync(entity);
             await _context.SaveChangesAsync();
 
@@ -31,6 +33,7 @@ namespace FitPlannerAPI.Repositories.Base
 
         public async Task CreateRangeAsync(IEnumerable<TEntity> entities)
         {
+            entities = entities.Select(e => { e.Id = Guid.NewGuid(); return e; }).ToList();
             await _table.AddRangeAsync(entities);
             await _context.SaveChangesAsync();
         }

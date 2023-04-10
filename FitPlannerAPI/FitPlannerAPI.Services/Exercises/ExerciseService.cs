@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitPlannerAPI.DTO.Exercises;
+using FitPlannerAPI.Models.Models;
 using FitPlannerAPI.Repositories.Repositories.ExerciseRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,18 @@ namespace FitPlannerAPI.Services.Exercises
             this._mapper = mapper;
         }
 
-        public Task<ObjectResult> CreateExercise()
+        public Task<Guid> CreateExercise(ExercisePost exercisePost)
         {
-            throw new NotImplementedException();
+            var exercise = new FitPlannerAPI.Models.Models.Exercise
+            {
+                Name = exercisePost.Name,
+                Description = exercisePost.Description,
+                Duration = exercisePost.Duration == 0 ? exercisePost.Duration : null
+            };
+
+            var createdExerciseId = _exerciseRepository.CreateAsyncGetId(exercise);
+
+            return createdExerciseId;
         }
 
         public Task<ObjectResult> DeleteExercise()
@@ -25,17 +35,20 @@ namespace FitPlannerAPI.Services.Exercises
             throw new NotImplementedException();
         }
 
-        public async Task<List<ExerciseGet>> GetAllExercises()
+        public async Task<List<FitPlannerAPI.DTO.Exercises.Exercise>> GetAllExercises()
         {
             var exercises = await _exerciseRepository.GetAllAsList();
-            var exercisesDTO = _mapper.Map<List<ExerciseGet>>(exercises);
+            var exercisesDTO = _mapper.Map<List<FitPlannerAPI.DTO.Exercises.Exercise>>(exercises);
 
             return exercisesDTO;
         }
 
-        public Task<ObjectResult> GetExerciseById()
+        public async Task<FitPlannerAPI.DTO.Exercises.Exercise> GetExerciseById(Guid id)
         {
-            throw new NotImplementedException();
+            var exercise = await _exerciseRepository.GetByIdAsync(id);
+            var exerciseDTO = _mapper.Map<FitPlannerAPI.DTO.Exercises.Exercise>(exercise);
+
+            return exerciseDTO;
         }
 
         public Task<ObjectResult> UpdateExercise()

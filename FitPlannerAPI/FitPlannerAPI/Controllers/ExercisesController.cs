@@ -1,15 +1,16 @@
-﻿using FitPlannerAPI.Services.Exercises;
+﻿using FitPlannerAPI.DTO.Exercises;
+using FitPlannerAPI.Services.Exercises;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ExerciseController : Controller
+    public class ExercisesController : Controller
     {
         private readonly IExerciseService _exerciseService;
 
-        public ExerciseController(IExerciseService exerciseService)
+        public ExercisesController(IExerciseService exerciseService)
         {
             this._exerciseService = exerciseService;
         }
@@ -24,6 +25,15 @@ namespace FitPlannerAPI.Controllers
             }
 
             return Ok(exercises);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateExercise(ExercisePost exercisePost)
+        {
+            var exerciseId = await _exerciseService.CreateExercise(exercisePost);
+
+            return Ok(exerciseId);
         }
     }
 }

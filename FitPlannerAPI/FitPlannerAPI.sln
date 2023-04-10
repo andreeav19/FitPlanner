@@ -5,13 +5,13 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitPlannerAPI", "FitPlannerAPI\FitPlannerAPI.csproj", "{EE0AF0FD-DF90-470A-A22A-91C8274F34EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitPlannerAPI.Models", "FitPlannerAPI.Models\FitPlannerAPI.Models.csproj", "{03B4A3A3-4F60-40A3-AD56-345E7C3D0AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitPlannerAPI.Models", "FitPlannerAPI.Models\FitPlannerAPI.Models.csproj", "{03B4A3A3-4F60-40A3-AD56-345E7C3D0AD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitPlannerAPI.Repositories", "FitPlannerAPI.Repositories\FitPlannerAPI.Repositories.csproj", "{D194B42E-945D-4989-9EDA-D26F1B8318AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitPlannerAPI.Repositories", "FitPlannerAPI.Repositories\FitPlannerAPI.Repositories.csproj", "{D194B42E-945D-4989-9EDA-D26F1B8318AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitPlannerAPI.DTO", "FitPlannerAPI.DTO\FitPlannerAPI.DTO.csproj", "{A64F0627-0F56-4327-8AC8-17A693FAC920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitPlannerAPI.DTO", "FitPlannerAPI.DTO\FitPlannerAPI.DTO.csproj", "{A64F0627-0F56-4327-8AC8-17A693FAC920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitPlannerAPI.Services", "FitPlannerAPI.Services\FitPlannerAPI.Services.csproj", "{628BD4E8-B693-4260-9F38-A16FAA8494C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitPlannerAPI.Services", "FitPlannerAPI.Services\FitPlannerAPI.Services.csproj", "{628BD4E8-B693-4260-9F38-A16FAA8494C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

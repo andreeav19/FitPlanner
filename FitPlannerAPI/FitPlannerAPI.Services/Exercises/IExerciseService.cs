@@ -5,9 +5,9 @@ namespace FitPlannerAPI.Services.Exercises
 {
     public interface IExerciseService
     {
-        Task<List<ExerciseGet>> GetAllExercises();
-        Task<ObjectResult> GetExerciseById();
-        Task<ObjectResult> CreateExercise();
+        Task<List<Exercise>> GetAllExercises();
+        Task<Exercise> GetExerciseById(Guid id);
+        Task<Guid> CreateExercise(ExercisePost exercisePost);
         Task<ObjectResult> UpdateExercise();
         Task<ObjectResult> DeleteExercise();
     }
