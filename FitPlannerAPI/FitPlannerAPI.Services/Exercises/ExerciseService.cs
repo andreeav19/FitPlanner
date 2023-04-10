@@ -16,7 +16,7 @@ namespace FitPlannerAPI.Services.Exercises
             this._mapper = mapper;
         }
 
-        public Task<Guid> CreateExercise(ExercisePost exercisePost)
+        public async Task<Guid> CreateExercise(ExercisePost exercisePost)
         {
             var exercise = new FitPlannerAPI.Models.Models.Exercise
             {
@@ -25,14 +25,23 @@ namespace FitPlannerAPI.Services.Exercises
                 Duration = exercisePost.Duration != 0 ? exercisePost.Duration : null
             };
 
-            var createdExerciseId = _exerciseRepository.CreateAsyncGetId(exercise);
+            var createdExerciseId = await _exerciseRepository.CreateAsyncGetId(exercise);
 
             return createdExerciseId;
         }
 
-        public Task<ObjectResult> DeleteExercise()
+        public async Task<bool> DeleteExercise(Guid id)
         {
-            throw new NotImplementedException();
+            var exercise = await _exerciseRepository.GetByIdAsync(id);
+
+            if (exercise == null)
+            {
+                return false;
+            }
+
+            await _exerciseRepository.DeleteAsync(exercise);
+
+            return true;
         }
 
         public async Task<List<FitPlannerAPI.DTO.Exercises.Exercise>> GetAllExercises()
@@ -60,7 +69,7 @@ namespace FitPlannerAPI.Services.Exercises
                 Duration = exercisePut.Duration != 0 ? exercisePut.Duration : null
             };
 
-            exercise = await _exerciseRepository.UpdateAsync(exercise);
+            exercise = await _exerciseRepository.UpdateAsync(id, exercise);
 
             if (exercise == null)
             {

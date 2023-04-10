@@ -62,5 +62,19 @@ namespace FitPlannerAPI.Controllers
 
             return Ok(exercise);
         }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> DeleteExercise(Guid id)
+        {
+            var isDeleted = await _exerciseService.DeleteExercise(id);
+
+            if (!isDeleted)
+            {
+                return BadRequest("Could not delete");
+            }
+
+            return Ok();
+        }
     }
 }
