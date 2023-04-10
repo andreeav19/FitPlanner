@@ -22,7 +22,7 @@ namespace FitPlannerAPI.Services.Exercises
             {
                 Name = exercisePost.Name,
                 Description = exercisePost.Description,
-                Duration = exercisePost.Duration == 0 ? exercisePost.Duration : null
+                Duration = exercisePost.Duration != 0 ? exercisePost.Duration : null
             };
 
             var createdExerciseId = _exerciseRepository.CreateAsyncGetId(exercise);
@@ -51,9 +51,25 @@ namespace FitPlannerAPI.Services.Exercises
             return exerciseDTO;
         }
 
-        public Task<ObjectResult> UpdateExercise()
+        public async Task<FitPlannerAPI.DTO.Exercises.Exercise> UpdateExercise(Guid id, ExercisePut exercisePut)
         {
-            throw new NotImplementedException();
+            var exercise = new FitPlannerAPI.Models.Models.Exercise
+            {
+                Name = exercisePut.Name,
+                Description = exercisePut.Description,
+                Duration = exercisePut.Duration != 0 ? exercisePut.Duration : null
+            };
+
+            exercise = await _exerciseRepository.UpdateAsync(exercise);
+
+            if (exercise == null)
+            {
+                return null;
+            }
+
+            var exerciseDTO = _mapper.Map<FitPlannerAPI.DTO.Exercises.Exercise>(exercise);
+
+            return exerciseDTO;
         }
     }
 }

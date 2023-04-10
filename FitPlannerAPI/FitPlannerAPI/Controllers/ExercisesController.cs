@@ -48,5 +48,19 @@ namespace FitPlannerAPI.Controllers
 
             return Ok(exerciseId);
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdateExercise(Guid id, ExercisePut exercisePut)
+        {
+            var exercise = await _exerciseService.UpdateExercise(id, exercisePut);
+
+            if (exercise == null)
+            {
+                return BadRequest("Could not update.");
+            }
+
+            return Ok(exercise);
+        }
     }
 }

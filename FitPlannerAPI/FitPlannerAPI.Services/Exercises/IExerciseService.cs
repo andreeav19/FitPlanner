@@ -8,7 +8,7 @@ namespace FitPlannerAPI.Services.Exercises
         Task<List<Exercise>> GetAllExercises();
         Task<Exercise> GetExerciseById(Guid id);
         Task<Guid> CreateExercise(ExercisePost exercisePost);
-        Task<ObjectResult> UpdateExercise();
+        Task<Exercise> UpdateExercise(Guid id, ExercisePut exercisePut);
         Task<ObjectResult> DeleteExercise();
     }
 }

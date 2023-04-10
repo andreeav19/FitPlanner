@@ -10,7 +10,7 @@
         Task<Guid> CreateAsyncGetId(TEntity entity);
         Task CreateRangeAsync(IEnumerable<TEntity> entities);
 
-        Task<int> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
 
         Task DeleteAsync(TEntity entity);
         Task DeleteRangeAsync(IEnumerable<TEntity> entities);

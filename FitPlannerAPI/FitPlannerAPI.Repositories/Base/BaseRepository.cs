@@ -38,10 +38,12 @@ namespace FitPlannerAPI.Repositories.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             _table.Update(entity);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
 
         public async Task DeleteAsync(TEntity entity)
