@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FitPlannerAPI.DTO.Exercises;
 using FitPlannerAPI.DTO.Workouts;
 using FitPlannerAPI.Models.Models;
 using FitPlannerAPI.Repositories.Repositories.WorkoutRepository;
@@ -62,6 +63,28 @@ namespace FitPlannerAPI.Services.Workouts
             var workoutsDTO = _mapper.Map<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>>(workouts);
 
             return workoutsDTO;
+        }
+
+        public async Task<List<DTO.Exercises.AssociatedExercise>> GetExercises(Guid workoutId)
+        {
+            var associatedExercises = await _workoutRepository.GetExerciseByWorkoutId(workoutId);
+            List<AssociatedExercise> exercisesList = new List<AssociatedExercise>();
+            foreach (var e in associatedExercises)
+            {
+                exercisesList.Add(new AssociatedExercise
+                {
+                    Id = e.ExerciseId,
+                    Name = e.Exercise.Name,
+                    Duration = e.Exercise.Duration,
+                    Description = e.Exercise.Description,
+                    CreatedDate = e.Exercise.CreatedDate,
+                    UpdatedDate = e.Exercise.UpdatedDate,
+                    Count = e.ExerciseCount
+                });
+            }
+
+            return exercisesList;
+
         }
 
         public async Task<FitPlannerAPI.DTO.Workouts.WorkoutRoutine> GetWorkoutRoutineById(Guid id)

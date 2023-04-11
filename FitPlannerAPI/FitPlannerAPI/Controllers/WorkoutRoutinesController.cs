@@ -46,6 +46,20 @@ namespace FitPlannerAPI.Controllers
             return Ok(workout);
         }
 
+        [HttpGet]
+        [Route("exercises/{id:guid}")]
+        public async Task<IActionResult> GetAssociatedExercises(Guid id)
+        {
+            var exercises = await _workoutService.GetExercises(id);
+
+            if (exercises.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(exercises);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost)
         {

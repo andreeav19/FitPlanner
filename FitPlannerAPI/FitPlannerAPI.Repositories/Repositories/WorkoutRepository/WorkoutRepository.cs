@@ -37,5 +37,15 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
 
             return true;
         }
+
+        public async Task<List<FitPlannerAPI.Models.Models.WorkoutExercise>> GetExerciseByWorkoutId(Guid workoutId)
+        {
+            var exercises = await _context.WorkoutExercises
+                .Where(we => we.WorkoutRoutineId == workoutId)
+                .Include(we => we.Exercise)
+                .ToListAsync();
+
+            return exercises;
+        }
     }
 }

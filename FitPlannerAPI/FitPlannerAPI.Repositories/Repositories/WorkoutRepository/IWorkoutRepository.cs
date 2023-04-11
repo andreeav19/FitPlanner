@@ -7,6 +7,7 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
     {
         public Task<WorkoutRoutine> UpdateAsync(Guid id, WorkoutRoutine workoutRoutine);
         public Task<bool> CreateWorkoutExercise(WorkoutExercise workoutExercise);
+        public Task<List<WorkoutExercise>> GetExerciseByWorkoutId(Guid workoutId);
 
     }
 }

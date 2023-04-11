@@ -1,4 +1,5 @@
-﻿using FitPlannerAPI.DTO.Workouts;
+﻿using FitPlannerAPI.DTO.Exercises;
+using FitPlannerAPI.DTO.Workouts;
 
 namespace FitPlannerAPI.Services.Workouts
 {
@@ -10,5 +11,6 @@ namespace FitPlannerAPI.Services.Workouts
         Task<WorkoutRoutine> UpdateWorkoutRoutine(Guid id, WorkoutRoutinePut workoutRoutinePut);
         Task<bool> DeleteWorkoutRoutine(Guid id);
         Task<bool> AddExercise(Guid workoutId, WorkoutExercisePost workoutExercisePost);
+        Task<List<AssociatedExercise>> GetExercises(Guid workoutId);
     }
 }
