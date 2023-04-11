@@ -5,6 +5,7 @@ using FitPlannerAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,29 @@ builder.Services.AddDbContext<FitPlannerDbContext>(options =>
 });
 
 builder.Services.AddRepositories();
-builder.Services.AddServices();
+builder.Services.AddSwaggerGen(options =>
+{
+    var securityScheme = new OpenApiSecurityScheme
+    {
+        Name = "JWT Authentication",
+        Description = "Enter a valid JWT Bearer Token",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { securityScheme, new string[] {} }
+    });
+});
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
