@@ -13,8 +13,9 @@ namespace FitPlannerAPI.Models.Models
         public string? Description { get; set; }
         public int? Breaktime { get; set; } // seconds
 
-        // Navigation property
+        // Navigation propertied
         public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; }
+        public virtual ICollection<UserWorkout> UserWorkouts { get; set; }
 
     }
 }

@@ -6,7 +6,9 @@ namespace FitPlannerAPI.Models.Models
     {
         public string Name { get; set; }
 
-        // Navigation property
+        // Navigation properties
         public virtual ICollection<MealIngredient> MealIngredients { get; set; }
+        public virtual ICollection<UserMeal> UserMeals { get; set; }
+
     }
 }
