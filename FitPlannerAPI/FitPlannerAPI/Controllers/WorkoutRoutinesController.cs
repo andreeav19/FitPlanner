@@ -65,7 +65,7 @@ namespace FitPlannerAPI.Controllers
         {
             var workoutId = await _workoutService.CreateWorkoutRoutine(workoutRoutinePost);
 
-            return Ok(workoutId);
+            return CreatedAtAction(nameof(CreateWorkoutRoutine), workoutId, workoutId);
         }
 
         [HttpPost]
@@ -79,7 +79,7 @@ namespace FitPlannerAPI.Controllers
                 return BadRequest("Could not add exercise."); 
             }
 
-            return Ok();
+            return CreatedAtAction(nameof(AddExercise), isAdded, isAdded);
         }
 
         [HttpPut]

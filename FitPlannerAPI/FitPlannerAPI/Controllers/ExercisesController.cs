@@ -46,7 +46,7 @@ namespace FitPlannerAPI.Controllers
         {
             var exerciseId = await _exerciseService.CreateExercise(exercisePost);
 
-            return Ok(exerciseId);
+            return CreatedAtAction(nameof(CreateExercise), exerciseId, exerciseId);
         }
 
         [HttpPut]

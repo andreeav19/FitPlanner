@@ -47,7 +47,7 @@ namespace FitPlannerAPI.Controllers
         {
             var ingredientId = await _ingredientService.CreateIngredient(ingredientPost);
 
-            return Ok(ingredientId);
+            return CreatedAtAction(nameof(CreateIngredient), ingredientId, ingredientId);
         }
 
         [HttpPut]
