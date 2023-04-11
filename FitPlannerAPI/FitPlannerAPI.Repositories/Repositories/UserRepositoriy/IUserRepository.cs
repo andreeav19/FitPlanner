@@ -10,6 +10,8 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
         public Task<bool> CreateUserWorkout(UserWorkout userWorkout);
         public Task<List<UserMeal>> GetMealsByUserId(Guid userId);
         public Task<List<UserWorkout>> GetWorkoutsByUserId(Guid userId);
+        public Task<User> AuthenticateUser(string username, string password);
+        public Task<Role> GetUserRoleById(Guid id);
 
     }
 }

@@ -11,6 +11,19 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
         {
         }
 
+        public async Task<User> AuthenticateUser(string username, string password)
+        {
+            var user = await _table.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            if (user == null)
+            {
+                return null;
+            }
+
+            user.Password = password;
+
+            return user;
+        }
+
         public async Task<bool> CreateUserMeal(UserMeal userMeal)
         {
             await _context.UserMeals.AddAsync(userMeal);
@@ -57,6 +70,17 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
                 .ToListAsync();
 
             return workouts;
+        }
+
+        public async Task<Role> GetUserRoleById(Guid id)
+        {
+            var role = await _table
+                .Where(u => u.Id == id)
+                .Include(um => um.Role)
+                .Select(result => result.Role)
+                .FirstOrDefaultAsync();
+
+            return role;
         }
     }
 }

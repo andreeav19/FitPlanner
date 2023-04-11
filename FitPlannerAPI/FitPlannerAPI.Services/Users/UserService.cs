@@ -10,9 +10,11 @@ namespace FitPlannerAPI.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly ITokenHandler _tokenHandler;
+        public UserService(IUserRepository userRepository, ITokenHandler tokenHandler)
         {
             this._userRepository = userRepository;
+            this._tokenHandler = tokenHandler;
         }
 
         public async Task<bool> AddMeal(string username, UserMealPost userMealPost)
@@ -105,6 +107,20 @@ namespace FitPlannerAPI.Services.Users
             }
 
             return workoutsList;
+        }
+
+        public async Task<string> UserLogin(UserLogin userLogin)
+        {
+            var user = await _userRepository.AuthenticateUser(userLogin.Username, userLogin.Password);
+
+            if (user == null) 
+            {
+                return null;
+            }
+
+            var token = await _tokenHandler.GetToken(user);
+
+            return token;
         }
     }
 }

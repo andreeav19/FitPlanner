@@ -11,5 +11,6 @@ namespace FitPlannerAPI.Services.Users
         Task<bool> AddWorkout(string username, UserWorkoutPost userWorkoutPost);
         Task<List<AssociatedMeal>> GetAssociatedMeals(string username);
         Task<List<AssociatedWorkout>> GetAssociatedWorkouts(string username);
+        Task<string> UserLogin(UserLogin userLogin);
     }
 }

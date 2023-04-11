@@ -16,6 +16,7 @@ namespace FitPlannerAPI.Repositories
             services.AddScoped<IWorkoutRepository, WorkoutRepository>();
             services.AddScoped<IMealRepository, MealRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenHandler, TokenHandler>();
         }
     }
 }

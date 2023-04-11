@@ -81,5 +81,18 @@ namespace FitPlannerAPI.Controllers
             return CreatedAtAction(nameof(AddWorkout), isAdded);
         }
 
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> LoginUser(UserLogin userLogin)
+        {
+            var token = await _userService.UserLogin(userLogin);
+
+            if (token == null)
+            {
+                return BadRequest("One of the fields username/password is incorrect.");
+            }
+
+            return Ok(token);
+        }
     }
 }
