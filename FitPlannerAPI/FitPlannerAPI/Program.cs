@@ -14,14 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<FitPlannerDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FitPlanner"));
-});
-
-builder.Services.AddRepositories();
 builder.Services.AddSwaggerGen(options =>
 {
     var securityScheme = new OpenApiSecurityScheme
@@ -45,6 +37,14 @@ builder.Services.AddSwaggerGen(options =>
         { securityScheme, new string[] {} }
     });
 });
+
+builder.Services.AddDbContext<FitPlannerDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FitPlanner"));
+});
+
+builder.Services.AddRepositories();
+builder.Services.AddServices();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
