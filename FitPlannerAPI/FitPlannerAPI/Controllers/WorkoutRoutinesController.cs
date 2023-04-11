@@ -1,6 +1,7 @@
 ﻿using FitPlannerApi.Models;
 using FitPlannerAPI.DTO.Workouts;
 using FitPlannerAPI.Services.Workouts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
@@ -19,6 +20,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAllWorkoutRoutines()
         {
             var workouts = await _workoutService.GetAllWorkoutRoutines();
@@ -33,6 +35,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("{id:guid}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetWorkoutById(Guid id)
         {
             var workout = await _workoutService.GetWorkoutRoutineById(id);
@@ -47,6 +50,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("exercises/{id:guid}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAssociatedExercises(Guid id)
         {
             var exercises = await _workoutService.GetExercises(id);
@@ -60,6 +64,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost)
         {
             var workoutId = await _workoutService.CreateWorkoutRoutine(workoutRoutinePost);
@@ -69,6 +74,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPost]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddExercise(Guid id, WorkoutExercisePost workoutExercisePost)
         {
             var isAdded = await _workoutService.AddExercise(id, workoutExercisePost);
@@ -83,6 +89,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateWorkoutRoutine(Guid id, WorkoutRoutinePut workoutRoutinePut)
         {
             var workout = await _workoutService.UpdateWorkoutRoutine(id, workoutRoutinePut);
@@ -97,6 +104,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteWorkoutRoutine(Guid id)
         {
             var isDeleted = await _workoutService.DeleteWorkoutRoutine(id);

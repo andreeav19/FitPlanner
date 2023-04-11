@@ -1,5 +1,6 @@
 ﻿using FitPlannerAPI.DTO.Exercises;
 using FitPlannerAPI.Services.Exercises;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
@@ -16,6 +17,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAllExercises() { 
             var exercises = await _exerciseService.GetAllExercises();
 
@@ -29,6 +31,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("{id:guid}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetExerciseById(Guid id)
         {
             var exercise = await _exerciseService.GetExerciseById(id);
@@ -42,6 +45,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateExercise(ExercisePost exercisePost)
         {
             var exerciseId = await _exerciseService.CreateExercise(exercisePost);
@@ -51,6 +55,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateExercise(Guid id, ExercisePut exercisePut)
         {
             var exercise = await _exerciseService.UpdateExercise(id, exercisePut);
@@ -65,6 +70,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteExercise(Guid id)
         {
             var isDeleted = await _exerciseService.DeleteExercise(id);

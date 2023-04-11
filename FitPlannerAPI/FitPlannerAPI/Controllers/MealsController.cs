@@ -1,6 +1,7 @@
 ﻿using FitPlannerApi.Models;
 using FitPlannerAPI.DTO.Meals;
 using FitPlannerAPI.Services.Meals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
@@ -19,6 +20,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAllMeals()
         {
             var meals = await _mealService.GetAllMeals();
@@ -33,6 +35,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("{id:guid}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetMealById(Guid id)
         {
             var meal = await _mealService.GetMealById(id);
@@ -47,6 +50,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("ingredients/{id:guid}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAssociatedIngredients(Guid id)
         {
             var ingredients = await _mealService.GetIngredients(id);
@@ -60,6 +64,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateMeal(MealPost mealPost)
         {
             var mealId = await _mealService.CreateMeal(mealPost);
@@ -69,6 +74,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPost]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddIngredient(Guid id, MealIngredientPost mealIngredientPost)
         {
             var isAdded = await _mealService.AddIngredient(id, mealIngredientPost);
@@ -83,6 +89,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateMeal(Guid id, MealPut mealPut)
         {
             var meal = await _mealService.UpdateMeal(id, mealPut);
@@ -97,6 +104,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteMeal(Guid id)
         {
             var isDeleted = await _mealService.DeleteMeal(id);

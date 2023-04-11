@@ -2,6 +2,7 @@
 using FitPlannerAPI.DTO.Users;
 using FitPlannerAPI.Models.Models;
 using FitPlannerAPI.Services.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
@@ -19,6 +20,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("meals/{username}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAssociatedMeals(string username)
         {
             var meals = await _userService.GetAssociatedMeals(username);
@@ -33,6 +35,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("workouts/{username}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAssociatedWorkouts(string username)
         {
             var workouts = await _userService.GetAssociatedWorkouts(username);
@@ -55,6 +58,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPost]
         [Route("add-meal/{username}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> AddMeal(string username, UserMealPost userMealPost)
         {
             var isAdded = await _userService.AddMeal(username, userMealPost);
@@ -69,6 +73,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPost]
         [Route("add-workout/{username}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> AddWorkout(string username, UserWorkoutPost userWorkoutPost)
         {
             var isAdded = await _userService.AddWorkout(username, userWorkoutPost);

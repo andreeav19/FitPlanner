@@ -1,5 +1,6 @@
 ﻿using FitPlannerAPI.DTO.Ingredients;
 using FitPlannerAPI.Services.Ingredients;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitPlannerAPI.Controllers
@@ -16,6 +17,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetAllIngredients()
         {
             var ingredients = await _ingredientService.GetAllIngredients();
@@ -30,6 +32,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Route("{id:guid}")]
+        [Authorize(Roles = "guest, admin")]
         public async Task<IActionResult> GetIngredientById(Guid id)
         {
             var ingredient = await _ingredientService.GetIngredientById(id);
@@ -43,6 +46,7 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateIngredient(IngredientPost ingredientPost)
         {
             var ingredientId = await _ingredientService.CreateIngredient(ingredientPost);
@@ -52,6 +56,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateIngredient(Guid id, IngredientPut ingredientPut)
         {
             var ingredient = await _ingredientService.UpdateIngredient(id, ingredientPut);
@@ -66,6 +71,7 @@ namespace FitPlannerAPI.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteIngredient(Guid id)
         {
             var isDeleted = await _ingredientService.DeleteIngredient(id);
