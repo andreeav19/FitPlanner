@@ -73,6 +73,9 @@ namespace FitPlannerAPI.Services.Meals
                 {
                     Id = i.IngredientId,
                     Name = i.Ingredient.Name,
+                    Calories = i.Ingredient.Calories,
+                    Price = i.Ingredient.Price,
+                    Quantity = i.Ingredient.Quantity,
                     CreatedDate = i.Ingredient.CreatedDate,
                     UpdatedDate = i.Ingredient.UpdatedDate,
                     Count = i.IngredientCount
