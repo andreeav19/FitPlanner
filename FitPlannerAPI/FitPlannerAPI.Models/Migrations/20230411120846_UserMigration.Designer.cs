@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitPlannerAPI.Models.Migrations
 {
     [DbContext(typeof(FitPlannerDbContext))]
-    [Migration("20230411104016_UpdateUserMigration")]
-    partial class UpdateUserMigration
+    [Migration("20230411120846_UserMigration")]
+    partial class UserMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,6 +167,9 @@ namespace FitPlannerAPI.Models.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -175,6 +178,8 @@ namespace FitPlannerAPI.Models.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -195,21 +200,6 @@ namespace FitPlannerAPI.Models.Migrations
                     b.HasIndex("MealId");
 
                     b.ToTable("UserMeals");
-                });
-
-            modelBuilder.Entity("FitPlannerAPI.Models.Models.UserRole", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("FitPlannerAPI.Models.Models.UserWorkout", b =>
@@ -290,6 +280,17 @@ namespace FitPlannerAPI.Models.Migrations
                     b.Navigation("Meal");
                 });
 
+            modelBuilder.Entity("FitPlannerAPI.Models.Models.User", b =>
+                {
+                    b.HasOne("FitPlannerAPI.Models.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("FitPlannerAPI.Models.Models.UserMeal", b =>
                 {
                     b.HasOne("FitPlannerAPI.Models.Models.Meal", "Meal")
@@ -305,25 +306,6 @@ namespace FitPlannerAPI.Models.Migrations
                         .IsRequired();
 
                     b.Navigation("Meal");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FitPlannerAPI.Models.Models.UserRole", b =>
-                {
-                    b.HasOne("FitPlannerAPI.Models.Models.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitPlannerAPI.Models.Models.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });
@@ -385,14 +367,12 @@ namespace FitPlannerAPI.Models.Migrations
 
             modelBuilder.Entity("FitPlannerAPI.Models.Models.Role", b =>
                 {
-                    b.Navigation("UserRoles");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("FitPlannerAPI.Models.Models.User", b =>
                 {
                     b.Navigation("UserMeals");
-
-                    b.Navigation("UserRoles");
 
                     b.Navigation("UserWorkouts");
                 });

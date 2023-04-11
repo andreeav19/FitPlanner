@@ -35,8 +35,6 @@ public class FitPlannerDbContext : DbContext
             .HasKey(mi => new { mi.MealId, mi.IngredientId });
         modelBuilder.Entity<WorkoutExercise>()
             .HasKey(we => new { we.WorkoutRoutineId, we.ExerciseId });
-        modelBuilder.Entity<UserRole>()
-            .HasKey(ur => new { ur.UserId, ur.RoleId });
         modelBuilder.Entity<UserMeal>()
             .HasKey(um => new { um.UserId, um.MealId });
         modelBuilder.Entity<UserWorkout>()
@@ -68,18 +66,6 @@ public class FitPlannerDbContext : DbContext
             .HasOne(we => we.Exercise)
             .WithMany(e => e.WorkoutExercises)
             .HasForeignKey(we => we.ExerciseId);
-
-        // Relationship between UserRole and User
-        modelBuilder.Entity<UserRole>()
-            .HasOne(ur => ur.User)
-            .WithMany(u => u.UserRoles)
-            .HasForeignKey(ur => ur.UserId);
-
-        // Relationship between UserRole and Role
-        modelBuilder.Entity<UserRole>()
-            .HasOne(ur => ur.Role)
-            .WithMany(r => r.UserRoles)
-            .HasForeignKey(ur => ur.RoleId);
 
         // Relationship between UserMeal and User
         modelBuilder.Entity<UserMeal>()
@@ -114,7 +100,6 @@ public class FitPlannerDbContext : DbContext
     public DbSet<MealIngredient> MealIngredients { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
-    public DbSet<UserRole> UserRoles { get; set; }
     public DbSet<UserMeal> UserMeals { get; set; }
     public DbSet<UserWorkout> UserWorkouts { get; set; }
 }
