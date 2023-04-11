@@ -1,6 +1,7 @@
 ﻿using FitPlannerApi.Models;
 using FitPlannerAPI.Models.Models;
 using FitPlannerAPI.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
 {
@@ -10,24 +11,45 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
         {
         }
 
-        public Task<bool> CreateUserMeal(UserMeal userMeal)
+        public async Task<bool> CreateUserMeal(UserMeal userMeal)
         {
-            throw new NotImplementedException();
+            await _context.UserMeals.AddAsync(userMeal);
+            var entries = await _context.SaveChangesAsync();
+
+            if (entries == 0) { return false; }
+
+            return true;
         }
 
-        public Task<bool> CreateUserWorkout(UserWorkout userWorkout)
+        public async Task<bool> CreateUserWorkout(UserWorkout userWorkout)
         {
-            throw new NotImplementedException();
+            await _context.UserWorkouts.AddAsync(userWorkout);
+            var entries = await _context.SaveChangesAsync();
+
+            if (entries == 0) { return false; }
+
+            return true;
+
         }
 
-        public Task<List<UserMeal>> GetMealByUserId(Guid userId)
+        public async Task<List<UserMeal>> GetMealByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            var meals = await _context.UserMeals
+                .Where(um => um.UserId == userId)
+                .Include(um => um.Meal)
+                .ToListAsync();
+
+            return meals;
         }
 
-        public Task<List<UserWorkout>> GetWorkoutByUserId(Guid userId)
+        public async Task<List<UserWorkout>> GetWorkoutByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            var workouts = await _context.UserWorkouts
+                .Where(uw => uw.UserId == userId)
+                .Include(um => um.WorkoutRoutine)
+                .ToListAsync();
+
+            return workouts;
         }
     }
 }
