@@ -2,7 +2,6 @@
 using FitPlannerAPI.DTO.Workouts;
 using FitPlannerAPI.Services.Workouts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FitPlannerAPI.Controllers
 {

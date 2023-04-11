@@ -1,6 +1,7 @@
 ﻿using FitPlannerAPI.Services.Exercises;
 using FitPlannerAPI.Services.Ingredients;
 using FitPlannerAPI.Services.Meals;
+using FitPlannerAPI.Services.Users;
 using FitPlannerAPI.Services.Workouts;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@ namespace FitPlannerAPI.Services
             services.AddScoped<IIngredientService, IngredientSerivce>();
             services.AddScoped<IWorkoutRoutineService, WorkoutRoutineService>();
             services.AddScoped<IMealService, MealService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
     }

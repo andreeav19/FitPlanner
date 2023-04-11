@@ -10,12 +10,9 @@ namespace FitPlannerAPI.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository)
         {
             this._userRepository = userRepository;
-            this._mapper = mapper;
         }
 
         public async Task<bool> AddMeal(string username, UserMealPost userMealPost)

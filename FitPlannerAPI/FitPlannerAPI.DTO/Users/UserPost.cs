@@ -1,8 +1,6 @@
-﻿using FitPlannerAPI.DTO.Base;
-
-namespace FitPlannerAPI.DTO.Users
+﻿namespace FitPlannerAPI.DTO.Users
 {
-    public class UserPost : BaseDTO
+    public class UserPost
     {
         public string Username { get; set; }
         public string FirstName { get; set; }
