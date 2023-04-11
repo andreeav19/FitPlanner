@@ -2,6 +2,6 @@
 {
     public class UserWorkoutPost
     {
-        public Guid Id { get; set; }
+        public Guid WorkoutId { get; set; }
     }
 }
