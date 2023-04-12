@@ -6,11 +6,11 @@ namespace FitPlannerAPI.Services.Users
 {
     public interface IUserService
     {
-        Task<Guid> CreateUser(UserPost userPost);
-        Task<bool> AddMeal(string username, UserMealPost userMealPost);
-        Task<bool> AddWorkout(string username, UserWorkoutPost userWorkoutPost);
-        Task<List<AssociatedMeal>> GetAssociatedMeals(string username);
-        Task<List<AssociatedWorkout>> GetAssociatedWorkouts(string username);
-        Task<string> UserLogin(UserLogin userLogin);
+        Task<Guid> CreateUserAsync(UserPost userPost);
+        Task<bool> AddMealAsync(string username, UserMealPost userMealPost);
+        Task<bool> AddWorkoutAsync(string username, UserWorkoutPost userWorkoutPost);
+        Task<List<AssociatedMeal>> GetAssociatedMealsAsync(string username);
+        Task<List<AssociatedWorkout>> GetAssociatedWorkoutsAsync(string username);
+        Task<string> UserLoginAsync(UserLogin userLogin);
     }
 }

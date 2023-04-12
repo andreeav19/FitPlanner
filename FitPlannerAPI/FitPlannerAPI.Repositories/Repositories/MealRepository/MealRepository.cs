@@ -11,7 +11,7 @@ namespace FitPlannerAPI.Repositories.Repositories.MealRepository
         {
         }
 
-        public async Task<bool> CreateMealIngredient(MealIngredient mealIngredient)
+        public async Task<bool> CreateMealIngredientAsync(MealIngredient mealIngredient)
         {
             await _context.MealIngredients.AddAsync(mealIngredient);
             var entries = await _context.SaveChangesAsync();
@@ -21,7 +21,7 @@ namespace FitPlannerAPI.Repositories.Repositories.MealRepository
             return true;
         }
 
-        public async Task<List<MealIngredient>> GetIngredientByMealId(Guid mealId)
+        public async Task<List<MealIngredient>> GetIngredientByMealIdAsync(Guid mealId)
         {
             var ingredients = await _context.MealIngredients
                 .Where(me => me.MealId == mealId)

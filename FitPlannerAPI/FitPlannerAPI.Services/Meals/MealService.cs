@@ -16,7 +16,7 @@ namespace FitPlannerAPI.Services.Meals
             this._mealRepository = mealRepository;
             this._mapper = mapper;
         }
-        public async Task<bool> AddIngredient(Guid mealId, MealIngredientPost mealIngredientPost)
+        public async Task<bool> AddIngredientAsync(Guid mealId, MealIngredientPost mealIngredientPost)
         {
             var mealIngredient = new FitPlannerAPI.Models.Models.MealIngredient
             {
@@ -25,10 +25,10 @@ namespace FitPlannerAPI.Services.Meals
                 IngredientCount = mealIngredientPost.IngredientCount
             };
 
-            return await _mealRepository.CreateMealIngredient(mealIngredient);
+            return await _mealRepository.CreateMealIngredientAsync(mealIngredient);
         }
 
-        public async Task<Guid> CreateMeal(MealPost mealPost)
+        public async Task<Guid> CreateMealAsync(MealPost mealPost)
         {
             var meal = new FitPlannerAPI.Models.Models.Meal
             {
@@ -40,7 +40,7 @@ namespace FitPlannerAPI.Services.Meals
             return createdMealId;
         }
 
-        public async Task<bool> DeleteMeal(Guid id)
+        public async Task<bool> DeleteMealAsync(Guid id)
         {
             var meal = await _mealRepository.GetByIdAsync(id);
 
@@ -54,17 +54,17 @@ namespace FitPlannerAPI.Services.Meals
             return true;
         }
 
-        public async Task<List<FitPlannerAPI.DTO.Meals.Meal>> GetAllMeals()
+        public async Task<List<FitPlannerAPI.DTO.Meals.Meal>> GetAllMealsAsync()
         {
-            var meals = await _mealRepository.GetAllAsList();
+            var meals = await _mealRepository.GetAllAsListAsync();
             var mealsDTO = _mapper.Map<List<FitPlannerAPI.DTO.Meals.Meal>>(meals);
 
             return mealsDTO;
         }
 
-        public async Task<List<AssociatedIngredient>> GetIngredients(Guid mealId)
+        public async Task<List<AssociatedIngredient>> GetIngredientsAsync(Guid mealId)
         {
-            var associatedIngredients = await _mealRepository.GetIngredientByMealId(mealId);
+            var associatedIngredients = await _mealRepository.GetIngredientByMealIdAsync(mealId);
             List<AssociatedIngredient> ingredientsList = new List<AssociatedIngredient>();
 
             foreach (var i in associatedIngredients)
@@ -85,7 +85,7 @@ namespace FitPlannerAPI.Services.Meals
             return ingredientsList;
         }
 
-        public async Task<FitPlannerAPI.DTO.Meals.Meal> GetMealById(Guid id)
+        public async Task<FitPlannerAPI.DTO.Meals.Meal> GetMealByIdAsync(Guid id)
         {
             var meal = await _mealRepository.GetByIdAsync(id);
             var mealDTO = _mapper.Map<FitPlannerAPI.DTO.Meals.Meal>(meal);
@@ -93,7 +93,7 @@ namespace FitPlannerAPI.Services.Meals
             return mealDTO;
         }
 
-        public async Task<FitPlannerAPI.DTO.Meals.Meal> UpdateMeal(Guid id, MealPut mealPut)
+        public async Task<FitPlannerAPI.DTO.Meals.Meal> UpdateMealAsync(Guid id, MealPut mealPut)
         {
             var meal = new FitPlannerAPI.Models.Models.Meal
             {

@@ -21,9 +21,9 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAllWorkoutRoutines()
+        public async Task<IActionResult> GetAllWorkoutRoutinesAsync()
         {
-            var workouts = await _workoutService.GetAllWorkoutRoutines();
+            var workouts = await _workoutService.GetAllWorkoutRoutinesAsync();
 
             if (workouts.Count == 0)
             {
@@ -36,9 +36,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetWorkoutById(Guid id)
+        public async Task<IActionResult> GetWorkoutByIdAsync(Guid id)
         {
-            var workout = await _workoutService.GetWorkoutRoutineById(id);
+            var workout = await _workoutService.GetWorkoutRoutineByIdAsync(id);
 
             if (workout == null)
             {
@@ -51,9 +51,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("exercises/{id:guid}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAssociatedExercises(Guid id)
+        public async Task<IActionResult> GetAssociatedExercisesAsync(Guid id)
         {
-            var exercises = await _workoutService.GetExercises(id);
+            var exercises = await _workoutService.GetExercisesAsync(id);
 
             if (exercises.Count == 0)
             {
@@ -64,35 +64,36 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
+        [Route("create-workout")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost)
+        public async Task<IActionResult> CreateWorkoutRoutineAsync(WorkoutRoutinePost workoutRoutinePost)
         {
-            var workoutId = await _workoutService.CreateWorkoutRoutine(workoutRoutinePost);
+            var workoutId = await _workoutService.CreateWorkoutRoutineAsync(workoutRoutinePost);
 
-            return CreatedAtAction(nameof(CreateWorkoutRoutine), workoutId, workoutId);
+            return CreatedAtAction(nameof(CreateWorkoutRoutineAsync), workoutId, workoutId);
         }
 
         [HttpPost]
-        [Route("{id:guid}")]
+        [Route("add-exercise/{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddExercise(Guid id, WorkoutExercisePost workoutExercisePost)
+        public async Task<IActionResult> AddExerciseAsync(Guid id, WorkoutExercisePost workoutExercisePost)
         {
-            var isAdded = await _workoutService.AddExercise(id, workoutExercisePost);
+            var isAdded = await _workoutService.AddExerciseAsync(id, workoutExercisePost);
 
             if (!isAdded) 
             { 
                 return BadRequest("Could not add exercise."); 
             }
 
-            return CreatedAtAction(nameof(AddExercise), isAdded, isAdded);
+            return CreatedAtAction(nameof(AddExerciseAsync), isAdded, isAdded);
         }
 
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateWorkoutRoutine(Guid id, WorkoutRoutinePut workoutRoutinePut)
+        public async Task<IActionResult> UpdateWorkoutRoutineAsync(Guid id, WorkoutRoutinePut workoutRoutinePut)
         {
-            var workout = await _workoutService.UpdateWorkoutRoutine(id, workoutRoutinePut);
+            var workout = await _workoutService.UpdateWorkoutRoutineAsync(id, workoutRoutinePut);
 
             if (workout == null)
             {
@@ -105,9 +106,9 @@ namespace FitPlannerAPI.Controllers
         [HttpDelete]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteWorkoutRoutine(Guid id)
+        public async Task<IActionResult> DeleteWorkoutRoutineAsync(Guid id)
         {
-            var isDeleted = await _workoutService.DeleteWorkoutRoutine(id);
+            var isDeleted = await _workoutService.DeleteWorkoutRoutineAsync(id);
 
             if (!isDeleted)
             {

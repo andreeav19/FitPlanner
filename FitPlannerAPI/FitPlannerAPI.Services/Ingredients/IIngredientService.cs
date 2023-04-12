@@ -4,10 +4,10 @@ namespace FitPlannerAPI.Services.Ingredients
 {
     public interface IIngredientService
     {
-        Task<List<Ingredient>> GetAllIngredients();
-        Task<Ingredient> GetIngredientById(Guid id);
-        Task<Guid> CreateIngredient(IngredientPost ingredientPost);
-        Task<Ingredient> UpdateIngredient(Guid id, IngredientPut ingredientPut);
-        Task<bool> DeleteIngredient(Guid id);
+        Task<List<Ingredient>> GetAllIngredientsAsync();
+        Task<Ingredient> GetIngredientByIdAsync(Guid id);
+        Task<Guid> CreateIngredientAsync(IngredientPost ingredientPost);
+        Task<Ingredient> UpdateIngredientAsync(Guid id, IngredientPut ingredientPut);
+        Task<bool> DeleteIngredientAsync(Guid id);
     }
 }

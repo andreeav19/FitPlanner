@@ -28,7 +28,7 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
 
             return existingWorkout;
         }
-        public async Task<bool> CreateWorkoutExercise(WorkoutExercise workoutExercise)
+        public async Task<bool> CreateWorkoutExerciseAsync(WorkoutExercise workoutExercise)
         {
             await _context.WorkoutExercises.AddAsync(workoutExercise);
             var entries = await _context.SaveChangesAsync();
@@ -38,7 +38,7 @@ namespace FitPlannerAPI.Repositories.Repositories.WorkoutRepository
             return true;
         }
 
-        public async Task<List<FitPlannerAPI.Models.Models.WorkoutExercise>> GetExerciseByWorkoutId(Guid workoutId)
+        public async Task<List<FitPlannerAPI.Models.Models.WorkoutExercise>> GetExerciseByWorkoutIdAsync(Guid workoutId)
         {
             var exercises = await _context.WorkoutExercises
                 .Where(we => we.WorkoutRoutineId == workoutId)

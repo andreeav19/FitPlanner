@@ -3,7 +3,7 @@
     public interface IBaseRepository<TEntity>
     {
         Task<TEntity> GetByIdAsync(Guid id);
-        Task<List<TEntity>> GetAllAsList();
+        Task<List<TEntity>> GetAllAsListAsync();
         IQueryable<TEntity> GetAllAsQueryable();
 
         Task CreateAsync(TEntity entity);

@@ -18,8 +18,8 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAllExercises() { 
-            var exercises = await _exerciseService.GetAllExercises();
+        public async Task<IActionResult> GetAllExercisesAsync() { 
+            var exercises = await _exerciseService.GetAllExercisesAsync();
 
             if (exercises.Count == 0)
             {
@@ -32,9 +32,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetExerciseById(Guid id)
+        public async Task<IActionResult> GetExerciseByIdAsync(Guid id)
         {
-            var exercise = await _exerciseService.GetExerciseById(id);
+            var exercise = await _exerciseService.GetExerciseByIdAsync(id);
 
             if (exercise == null)
             {
@@ -46,19 +46,19 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateExercise(ExercisePost exercisePost)
+        public async Task<IActionResult> CreateExerciseAsync(ExercisePost exercisePost)
         {
-            var exerciseId = await _exerciseService.CreateExercise(exercisePost);
+            var exerciseId = await _exerciseService.CreateExerciseAsync(exercisePost);
 
-            return CreatedAtAction(nameof(CreateExercise), exerciseId, exerciseId);
+            return CreatedAtAction(nameof(CreateExerciseAsync), exerciseId, exerciseId);
         }
 
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateExercise(Guid id, ExercisePut exercisePut)
+        public async Task<IActionResult> UpdateExerciseAsync(Guid id, ExercisePut exercisePut)
         {
-            var exercise = await _exerciseService.UpdateExercise(id, exercisePut);
+            var exercise = await _exerciseService.UpdateExerciseAsync(id, exercisePut);
 
             if (exercise == null)
             {
@@ -71,9 +71,9 @@ namespace FitPlannerAPI.Controllers
         [HttpDelete]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteExercise(Guid id)
+        public async Task<IActionResult> DeleteExerciseAsync(Guid id)
         {
-            var isDeleted = await _exerciseService.DeleteExercise(id);
+            var isDeleted = await _exerciseService.DeleteExerciseAsync(id);
 
             if (!isDeleted)
             {

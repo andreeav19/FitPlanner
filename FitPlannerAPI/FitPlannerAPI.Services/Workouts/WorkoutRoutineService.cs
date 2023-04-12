@@ -17,7 +17,7 @@ namespace FitPlannerAPI.Services.Workouts
             this._mapper = mapper;
         }
 
-        public async Task<bool> AddExercise(Guid workoutId, WorkoutExercisePost workoutExercisePost)
+        public async Task<bool> AddExerciseAsync(Guid workoutId, WorkoutExercisePost workoutExercisePost)
         {
             var workoutExercise = new WorkoutExercise
             {
@@ -26,16 +26,16 @@ namespace FitPlannerAPI.Services.Workouts
                 ExerciseCount = workoutExercisePost.ExerciseCount,
             };
 
-            return await _workoutRepository.CreateWorkoutExercise(workoutExercise);
+            return await _workoutRepository.CreateWorkoutExerciseAsync(workoutExercise);
         }
 
-        public async Task<Guid> CreateWorkoutRoutine(WorkoutRoutinePost workoutRoutinePost)
+        public async Task<Guid> CreateWorkoutRoutineAsync(WorkoutRoutinePost workoutRoutinePost)
         {
             var workout = new FitPlannerAPI.Models.Models.WorkoutRoutine
             {
                 Name = workoutRoutinePost.Name,
                 Description = workoutRoutinePost.Description,
-                Breaktime = workoutRoutinePost.Breaktime
+                Breaktime = workoutRoutinePost.Breaktime != 0 ? workoutRoutinePost.Breaktime : null,
             };
 
             var createdWorkoutId = await _workoutRepository.CreateAsyncGetId(workout);
@@ -43,7 +43,7 @@ namespace FitPlannerAPI.Services.Workouts
             return createdWorkoutId;
         }
 
-        public async Task<bool> DeleteWorkoutRoutine(Guid id)
+        public async Task<bool> DeleteWorkoutRoutineAsync(Guid id)
         {
             var workout = await _workoutRepository.GetByIdAsync(id);
 
@@ -57,17 +57,17 @@ namespace FitPlannerAPI.Services.Workouts
             return true;
         }
 
-        public async Task<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>> GetAllWorkoutRoutines()
+        public async Task<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>> GetAllWorkoutRoutinesAsync()
         {
-            var workouts = await _workoutRepository.GetAllAsList();
+            var workouts = await _workoutRepository.GetAllAsListAsync();
             var workoutsDTO = _mapper.Map<List<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>>(workouts);
 
             return workoutsDTO;
         }
 
-        public async Task<List<DTO.Exercises.AssociatedExercise>> GetExercises(Guid workoutId)
+        public async Task<List<DTO.Exercises.AssociatedExercise>> GetExercisesAsync(Guid workoutId)
         {
-            var associatedExercises = await _workoutRepository.GetExerciseByWorkoutId(workoutId);
+            var associatedExercises = await _workoutRepository.GetExerciseByWorkoutIdAsync(workoutId);
             List<AssociatedExercise> exercisesList = new List<AssociatedExercise>();
             foreach (var e in associatedExercises)
             {
@@ -87,7 +87,7 @@ namespace FitPlannerAPI.Services.Workouts
 
         }
 
-        public async Task<FitPlannerAPI.DTO.Workouts.WorkoutRoutine> GetWorkoutRoutineById(Guid id)
+        public async Task<FitPlannerAPI.DTO.Workouts.WorkoutRoutine> GetWorkoutRoutineByIdAsync(Guid id)
         {
             var workout = await _workoutRepository.GetByIdAsync(id);
             var workoutDTO = _mapper.Map<FitPlannerAPI.DTO.Workouts.WorkoutRoutine>(workout);
@@ -95,13 +95,13 @@ namespace FitPlannerAPI.Services.Workouts
             return workoutDTO;
         }
 
-        public async Task<FitPlannerAPI.DTO.Workouts.WorkoutRoutine> UpdateWorkoutRoutine(Guid id, WorkoutRoutinePut workoutRoutinePut)
+        public async Task<FitPlannerAPI.DTO.Workouts.WorkoutRoutine> UpdateWorkoutRoutineAsync(Guid id, WorkoutRoutinePut workoutRoutinePut)
         {
             var workout = new FitPlannerAPI.Models.Models.WorkoutRoutine 
             { 
                 Name = workoutRoutinePut.Name,
                 Description = workoutRoutinePut.Description,
-                Breaktime = workoutRoutinePut.Breaktime
+                Breaktime = workoutRoutinePut.Breaktime != 0 ? workoutRoutinePut.Breaktime : null
             };
 
             workout = await _workoutRepository.UpdateAsync(id, workout);

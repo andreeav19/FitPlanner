@@ -1,6 +1,7 @@
 ﻿using FitPlannerAPI.Repositories.Repositories.ExerciseRepository;
 using FitPlannerAPI.Repositories.Repositories.IngredientRepository;
 using FitPlannerAPI.Repositories.Repositories.MealRepository;
+using FitPlannerAPI.Repositories.Repositories.TokenHandler;
 using FitPlannerAPI.Repositories.Repositories.UserRepositoriy;
 using FitPlannerAPI.Repositories.Repositories.WorkoutRepository;
 using Microsoft.Extensions.DependencyInjection;

@@ -19,7 +19,7 @@ namespace FitPlannerAPI.Services.Ingredients
             this._ingredientRepository = ingredientRepository;
             this._mapper = mapper;
         }
-        public async Task<Guid> CreateIngredient(IngredientPost ingredientPost)
+        public async Task<Guid> CreateIngredientAsync(IngredientPost ingredientPost)
         {
             var ingredient = new FitPlannerAPI.Models.Models.Ingredient
             {
@@ -34,7 +34,7 @@ namespace FitPlannerAPI.Services.Ingredients
             return createdIngredientId;
         }
 
-        public async Task<bool> DeleteIngredient(Guid id)
+        public async Task<bool> DeleteIngredientAsync(Guid id)
         {
             var ingredient = await _ingredientRepository.GetByIdAsync(id);
 
@@ -48,15 +48,15 @@ namespace FitPlannerAPI.Services.Ingredients
             return true;
         }
 
-        public async Task<List<FitPlannerAPI.DTO.Ingredients.Ingredient>> GetAllIngredients()
+        public async Task<List<FitPlannerAPI.DTO.Ingredients.Ingredient>> GetAllIngredientsAsync()
         {
-            var ingredients = await _ingredientRepository.GetAllAsList();
+            var ingredients = await _ingredientRepository.GetAllAsListAsync();
             var ingredientsDTO = _mapper.Map<List<FitPlannerAPI.DTO.Ingredients.Ingredient>>(ingredients);
 
             return ingredientsDTO;
         }
 
-        public async Task<FitPlannerAPI.DTO.Ingredients.Ingredient> GetIngredientById(Guid id)
+        public async Task<FitPlannerAPI.DTO.Ingredients.Ingredient> GetIngredientByIdAsync(Guid id)
         {
             var ingredient = await _ingredientRepository.GetByIdAsync(id);
             var ingredientDTO = _mapper.Map<FitPlannerAPI.DTO.Ingredients.Ingredient>(ingredient);
@@ -64,7 +64,7 @@ namespace FitPlannerAPI.Services.Ingredients
             return ingredientDTO;
         }
 
-        public async Task<FitPlannerAPI.DTO.Ingredients.Ingredient> UpdateIngredient(Guid id, IngredientPut ingredientPut)
+        public async Task<FitPlannerAPI.DTO.Ingredients.Ingredient> UpdateIngredientAsync(Guid id, IngredientPut ingredientPut)
         {
             var ingredient = new FitPlannerAPI.Models.Models.Ingredient
             {

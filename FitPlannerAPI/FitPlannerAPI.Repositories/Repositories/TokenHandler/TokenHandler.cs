@@ -4,8 +4,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using FitPlannerAPI.Repositories.Repositories.UserRepositoriy;
 
-namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
+namespace FitPlannerAPI.Repositories.Repositories.TokenHandler
 {
     public class TokenHandler : ITokenHandler
     {
@@ -14,15 +15,15 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
 
         public TokenHandler(IConfiguration configuration, IUserRepository userRepository)
         {
-            this._configuration = configuration;
-            this._userRepository = userRepository;
+            _configuration = configuration;
+            _userRepository = userRepository;
         }
 
-        public async Task<string> GetToken(User user)
+        public async Task<string> GetTokenAsync(User user)
         {
             // Create Claims
             var claims = new List<Claim>();
-            var role = await _userRepository.GetUserRoleById(user.Id);
+            var role = await _userRepository.GetUserRoleByIdAsync(user.Id);
 
             claims.Add(new Claim(ClaimTypes.GivenName, user.FirstName));
             claims.Add(new Claim(ClaimTypes.Surname, user.LastName));

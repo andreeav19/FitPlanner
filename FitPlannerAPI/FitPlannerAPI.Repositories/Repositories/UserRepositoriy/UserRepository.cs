@@ -11,7 +11,7 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
         {
         }
 
-        public async Task<User> AuthenticateUser(string username, string password)
+        public async Task<User> AuthenticateUserAsync(string username, string password)
         {
             var user = await _table.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
             if (user == null)
@@ -24,7 +24,7 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
             return user;
         }
 
-        public async Task<bool> CreateUserMeal(UserMeal userMeal)
+        public async Task<bool> CreateUserMealAsync(UserMeal userMeal)
         {
             await _context.UserMeals.AddAsync(userMeal);
             var entries = await _context.SaveChangesAsync();
@@ -34,7 +34,7 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
             return true;
         }
 
-        public async Task<bool> CreateUserWorkout(UserWorkout userWorkout)
+        public async Task<bool> CreateUserWorkoutAsync(UserWorkout userWorkout)
         {
             await _context.UserWorkouts.AddAsync(userWorkout);
             var entries = await _context.SaveChangesAsync();
@@ -45,14 +45,14 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
 
         }
 
-        public async Task<Guid> GetIdByUsername(string username)
+        public async Task<Guid> GetIdByUsernameAsync(string username)
         {
             var user = await _table.Where(u => u.Username == username).FirstOrDefaultAsync();
 
             return user.Id;
         }
 
-        public async Task<List<UserMeal>> GetMealsByUserId(Guid userId)
+        public async Task<List<UserMeal>> GetMealsByUserIdAsync(Guid userId)
         {
             var meals = await _context.UserMeals
                 .Where(um => um.UserId == userId)
@@ -62,7 +62,7 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
             return meals;
         }
 
-        public async Task<List<UserWorkout>> GetWorkoutsByUserId(Guid userId)
+        public async Task<List<UserWorkout>> GetWorkoutsByUserIdAsync(Guid userId)
         {
             var workouts = await _context.UserWorkouts
                 .Where(uw => uw.UserId == userId)
@@ -72,7 +72,7 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
             return workouts;
         }
 
-        public async Task<Role> GetUserRoleById(Guid id)
+        public async Task<Role> GetUserRoleByIdAsync(Guid id)
         {
             var role = await _table
                 .Where(u => u.Id == id)

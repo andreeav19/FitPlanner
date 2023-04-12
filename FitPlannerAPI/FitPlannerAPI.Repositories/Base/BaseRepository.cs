@@ -55,7 +55,7 @@ namespace FitPlannerAPI.Repositories.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<TEntity>> GetAllAsList()
+        public async Task<List<TEntity>> GetAllAsListAsync()
         {
            return await _table.AsNoTracking().ToListAsync();
         }

@@ -18,9 +18,9 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAllIngredients()
+        public async Task<IActionResult> GetAllIngredientsAsync()
         {
-            var ingredients = await _ingredientService.GetAllIngredients();
+            var ingredients = await _ingredientService.GetAllIngredientsAsync();
 
             if (ingredients.Count == 0)
             {
@@ -33,9 +33,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetIngredientById(Guid id)
+        public async Task<IActionResult> GetIngredientByIdAsync(Guid id)
         {
-            var ingredient = await _ingredientService.GetIngredientById(id);
+            var ingredient = await _ingredientService.GetIngredientByIdAsync(id);
 
             if (ingredient == null)
             {
@@ -47,19 +47,19 @@ namespace FitPlannerAPI.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateIngredient(IngredientPost ingredientPost)
+        public async Task<IActionResult> CreateIngredientAsync(IngredientPost ingredientPost)
         {
-            var ingredientId = await _ingredientService.CreateIngredient(ingredientPost);
+            var ingredientId = await _ingredientService.CreateIngredientAsync(ingredientPost);
 
-            return CreatedAtAction(nameof(CreateIngredient), ingredientId, ingredientId);
+            return CreatedAtAction(nameof(CreateIngredientAsync), ingredientId, ingredientId);
         }
 
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateIngredient(Guid id, IngredientPut ingredientPut)
+        public async Task<IActionResult> UpdateIngredientAsync(Guid id, IngredientPut ingredientPut)
         {
-            var ingredient = await _ingredientService.UpdateIngredient(id, ingredientPut);
+            var ingredient = await _ingredientService.UpdateIngredientAsync(id, ingredientPut);
 
             if (ingredient == null)
             {
@@ -74,7 +74,7 @@ namespace FitPlannerAPI.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteIngredient(Guid id)
         {
-            var isDeleted = await _ingredientService.DeleteIngredient(id);
+            var isDeleted = await _ingredientService.DeleteIngredientAsync(id);
 
             if (!isDeleted)
             {

@@ -5,13 +5,13 @@ namespace FitPlannerAPI.Repositories.Repositories.UserRepositoriy
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        public Task<Guid> GetIdByUsername(string username);
-        public Task<bool> CreateUserMeal(UserMeal userMeal);
-        public Task<bool> CreateUserWorkout(UserWorkout userWorkout);
-        public Task<List<UserMeal>> GetMealsByUserId(Guid userId);
-        public Task<List<UserWorkout>> GetWorkoutsByUserId(Guid userId);
-        public Task<User> AuthenticateUser(string username, string password);
-        public Task<Role> GetUserRoleById(Guid id);
+        public Task<Guid> GetIdByUsernameAsync(string username);
+        public Task<bool> CreateUserMealAsync(UserMeal userMeal);
+        public Task<bool> CreateUserWorkoutAsync(UserWorkout userWorkout);
+        public Task<List<UserMeal>> GetMealsByUserIdAsync(Guid userId);
+        public Task<List<UserWorkout>> GetWorkoutsByUserIdAsync(Guid userId);
+        public Task<User> AuthenticateUserAsync(string username, string password);
+        public Task<Role> GetUserRoleByIdAsync(Guid id);
 
     }
 }

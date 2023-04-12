@@ -16,7 +16,7 @@ namespace FitPlannerAPI.Services.Exercises
             this._mapper = mapper;
         }
 
-        public async Task<Guid> CreateExercise(ExercisePost exercisePost)
+        public async Task<Guid> CreateExerciseAsync(ExercisePost exercisePost)
         {
             var exercise = new FitPlannerAPI.Models.Models.Exercise
             {
@@ -30,7 +30,7 @@ namespace FitPlannerAPI.Services.Exercises
             return createdExerciseId;
         }
 
-        public async Task<bool> DeleteExercise(Guid id)
+        public async Task<bool> DeleteExerciseAsync(Guid id)
         {
             var exercise = await _exerciseRepository.GetByIdAsync(id);
 
@@ -44,15 +44,15 @@ namespace FitPlannerAPI.Services.Exercises
             return true;
         }
 
-        public async Task<List<FitPlannerAPI.DTO.Exercises.Exercise>> GetAllExercises()
+        public async Task<List<FitPlannerAPI.DTO.Exercises.Exercise>> GetAllExercisesAsync()
         {
-            var exercises = await _exerciseRepository.GetAllAsList();
+            var exercises = await _exerciseRepository.GetAllAsListAsync();
             var exercisesDTO = _mapper.Map<List<FitPlannerAPI.DTO.Exercises.Exercise>>(exercises);
 
             return exercisesDTO;
         }
 
-        public async Task<FitPlannerAPI.DTO.Exercises.Exercise> GetExerciseById(Guid id)
+        public async Task<FitPlannerAPI.DTO.Exercises.Exercise> GetExerciseByIdAsync(Guid id)
         {
             var exercise = await _exerciseRepository.GetByIdAsync(id);
             var exerciseDTO = _mapper.Map<FitPlannerAPI.DTO.Exercises.Exercise>(exercise);
@@ -60,7 +60,7 @@ namespace FitPlannerAPI.Services.Exercises
             return exerciseDTO;
         }
 
-        public async Task<FitPlannerAPI.DTO.Exercises.Exercise> UpdateExercise(Guid id, ExercisePut exercisePut)
+        public async Task<FitPlannerAPI.DTO.Exercises.Exercise> UpdateExerciseAsync(Guid id, ExercisePut exercisePut)
         {
             var exercise = new FitPlannerAPI.Models.Models.Exercise
             {

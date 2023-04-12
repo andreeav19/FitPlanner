@@ -21,9 +21,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("meals/{username}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAssociatedMeals(string username)
+        public async Task<IActionResult> GetAssociatedMealsAsync(string username)
         {
-            var meals = await _userService.GetAssociatedMeals(username);
+            var meals = await _userService.GetAssociatedMealsAsync(username);
 
             if (meals.Count == 0)
             {
@@ -36,9 +36,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("workouts/{username}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAssociatedWorkouts(string username)
+        public async Task<IActionResult> GetAssociatedWorkoutsAsync(string username)
         {
-            var workouts = await _userService.GetAssociatedWorkouts(username);
+            var workouts = await _userService.GetAssociatedWorkoutsAsync(username);
 
             if (workouts.Count == 0)
             {
@@ -49,48 +49,49 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(UserPost userPost)
+        [Route("sign-in")]
+        public async Task<IActionResult> CreateUserAsync(UserPost userPost)
         {
-            var userId = await _userService.CreateUser(userPost);
+            var userId = await _userService.CreateUserAsync(userPost);
 
-            return CreatedAtAction(nameof(CreateUser), userId);
+            return CreatedAtAction(nameof(CreateUserAsync), userId);
         }
 
         [HttpPost]
         [Route("add-meal/{username}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> AddMeal(string username, UserMealPost userMealPost)
+        public async Task<IActionResult> AddMealAsync(string username, UserMealPost userMealPost)
         {
-            var isAdded = await _userService.AddMeal(username, userMealPost);
+            var isAdded = await _userService.AddMealAsync(username, userMealPost);
 
             if (!isAdded)
             {
                 return BadRequest("Could not add meal.");
             }
 
-            return CreatedAtAction(nameof(AddMeal), isAdded);
+            return CreatedAtAction(nameof(AddMealAsync), isAdded);
         }
 
         [HttpPost]
         [Route("add-workout/{username}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> AddWorkout(string username, UserWorkoutPost userWorkoutPost)
+        public async Task<IActionResult> AddWorkoutAsync(string username, UserWorkoutPost userWorkoutPost)
         {
-            var isAdded = await _userService.AddWorkout(username, userWorkoutPost);
+            var isAdded = await _userService.AddWorkoutAsync(username, userWorkoutPost);
 
             if (!isAdded)
             {
                 return BadRequest("Could not add workout.");
             }
 
-            return CreatedAtAction(nameof(AddWorkout), isAdded);
+            return CreatedAtAction(nameof(AddWorkoutAsync), isAdded);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> LoginUser(UserLogin userLogin)
+        public async Task<IActionResult> LoginUserAsync(UserLogin userLogin)
         {
-            var token = await _userService.UserLogin(userLogin);
+            var token = await _userService.UserLoginAsync(userLogin);
 
             if (token == null)
             {

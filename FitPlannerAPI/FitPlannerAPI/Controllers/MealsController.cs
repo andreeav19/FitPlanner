@@ -21,9 +21,9 @@ namespace FitPlannerAPI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAllMeals()
+        public async Task<IActionResult> GetAllMealsAsync()
         {
-            var meals = await _mealService.GetAllMeals();
+            var meals = await _mealService.GetAllMealsAsync();
 
             if (meals.Count == 0)
             {
@@ -36,9 +36,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetMealById(Guid id)
+        public async Task<IActionResult> GetMealByIdAsync(Guid id)
         {
-            var meal = await _mealService.GetMealById(id);
+            var meal = await _mealService.GetMealByIdAsync(id);
 
             if (meal == null)
             {
@@ -51,9 +51,9 @@ namespace FitPlannerAPI.Controllers
         [HttpGet]
         [Route("ingredients/{id:guid}")]
         [Authorize(Roles = "guest, admin")]
-        public async Task<IActionResult> GetAssociatedIngredients(Guid id)
+        public async Task<IActionResult> GetAssociatedIngredientsAsync(Guid id)
         {
-            var ingredients = await _mealService.GetIngredients(id);
+            var ingredients = await _mealService.GetIngredientsAsync(id);
 
             if (ingredients.Count == 0)
             {
@@ -64,35 +64,36 @@ namespace FitPlannerAPI.Controllers
         }
 
         [HttpPost]
+        [Route("create-meal")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateMeal(MealPost mealPost)
+        public async Task<IActionResult> CreateMealAsync(MealPost mealPost)
         {
-            var mealId = await _mealService.CreateMeal(mealPost);
+            var mealId = await _mealService.CreateMealAsync(mealPost);
 
-            return CreatedAtAction(nameof(CreateMeal), mealId);
+            return CreatedAtAction(nameof(CreateMealAsync), mealId);
         }
 
         [HttpPost]
-        [Route("{id:guid}")]
+        [Route("add-ingredient/{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddIngredient(Guid id, MealIngredientPost mealIngredientPost)
+        public async Task<IActionResult> AddIngredientAsync(Guid id, MealIngredientPost mealIngredientPost)
         {
-            var isAdded = await _mealService.AddIngredient(id, mealIngredientPost);
+            var isAdded = await _mealService.AddIngredientAsync(id, mealIngredientPost);
 
             if (!isAdded)
             {
                 return BadRequest("Could not add ingredient.");
             }
 
-            return CreatedAtAction(nameof(AddIngredient), isAdded);
+            return CreatedAtAction(nameof(AddIngredientAsync), isAdded);
         }
 
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateMeal(Guid id, MealPut mealPut)
+        public async Task<IActionResult> UpdateMealAsync(Guid id, MealPut mealPut)
         {
-            var meal = await _mealService.UpdateMeal(id, mealPut);
+            var meal = await _mealService.UpdateMealAsync(id, mealPut);
 
             if (meal == null)
             {
@@ -105,9 +106,9 @@ namespace FitPlannerAPI.Controllers
         [HttpDelete]
         [Route("{id:guid}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteMeal(Guid id)
+        public async Task<IActionResult> DeleteMealAsync(Guid id)
         {
-            var isDeleted = await _mealService.DeleteMeal(id);
+            var isDeleted = await _mealService.DeleteMealAsync(id);
 
             if (!isDeleted)
             {

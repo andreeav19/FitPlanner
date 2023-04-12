@@ -5,10 +5,10 @@ namespace FitPlannerAPI.Services.Exercises
 {
     public interface IExerciseService
     {
-        Task<List<Exercise>> GetAllExercises();
-        Task<Exercise> GetExerciseById(Guid id);
-        Task<Guid> CreateExercise(ExercisePost exercisePost);
-        Task<Exercise> UpdateExercise(Guid id, ExercisePut exercisePut);
-        Task<bool> DeleteExercise(Guid id);
+        Task<List<Exercise>> GetAllExercisesAsync();
+        Task<Exercise> GetExerciseByIdAsync(Guid id);
+        Task<Guid> CreateExerciseAsync(ExercisePost exercisePost);
+        Task<Exercise> UpdateExerciseAsync(Guid id, ExercisePut exercisePut);
+        Task<bool> DeleteExerciseAsync(Guid id);
     }
 }
